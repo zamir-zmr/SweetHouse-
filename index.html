@@ -1041,26 +1041,20 @@
 
 <script>
 
-// Aapka Actual Config
 
-
-// 1. Firebase Configuration
-// 1. Firebase Configuration
-// 1. Firebase Configuration
-
-
+// 2. आपका नया SWEETHOUSE Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA0rirztMO13FyXcKYz1aEB1ERYH-HQUbA",
   authDomain: "sweethouse-e3e49.firebaseapp.com",
-  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com",
+  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com"",
   projectId: "sweethouse-e3e49",
   storageBucket: "sweethouse-e3e49.firebasestorage.app",
   messagingSenderId: "579322038108",
-  appId: "1:579322038108:web:166b7fdb103080f56d6399",
+ appId: "1:579322038108:web:166b7fdb103080f56d6399",
   measurementId: "G-02SHYLFV3F"
 };
 
-// Initialize Firebase
+// 2. Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
@@ -1069,15 +1063,18 @@ const db = firebase.database();
 function Lock() {
   let deviceId = localStorage.getItem('SweetHouse_device_id');
 
-  if (!deviceId) {
-    deviceId = 'SH-' + Math.random().toString(36).substr(2,6).toUpperCase();
-    localStorage.setItem('SweetHouse_device_id', deviceId); 
-  }
 
-  // Realtime Database check
+if (!deviceId) {
+    // ASH ki jagah CA ya COST likh sakte hain
+    deviceId = 'ASH-' + Math.random().toString(36).substr(2,6).toUpperCase();
+    localStorage.setItem('SweetHouse_device_id', deviceId); 
+}
+
+  // Value listener with silent error handling
   db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
 
+    // for Active, True, or your specific tag ASH786
     const isAllowed = (
       val === "Active" ||
       val === "ACTIVE" ||
@@ -1147,6 +1144,7 @@ function Lock() {
 }
 
 Lock();
+
 
 // --- Share Panel Update (Device ID Dikhane ke liye) ---
 
