@@ -1027,30 +1027,21 @@
 
     </style>
     
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
-    
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <script>
-
-
 // 2. आपका नया SWEETHOUSE Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA0rirztMO13FyXcKYz1aEB1ERYH-HQUbA",
   authDomain: "sweethouse-e3e49.firebaseapp.com",
-  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com"",
+  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com", // यहाँ एक्स्ट्रा कोट्स हटा दिए हैं
   projectId: "sweethouse-e3e49",
   storageBucket: "sweethouse-e3e49.firebasestorage.app",
   messagingSenderId: "579322038108",
- appId: "1:579322038108:web:166b7fdb103080f56d6399",
+  appId: "1:579322038108:web:166b7fdb103080f56d6399",
 };
 
 // 2. Initialize Firebase
@@ -1062,12 +1053,11 @@ const db = firebase.database();
 function Lock() {
   let deviceId = localStorage.getItem('ash_device_id');
 
-
-if (!deviceId) {
+  if (!deviceId) {
     // ASH ki jagah CA ya COST likh sakte hain
     deviceId = 'ASH-' + Math.random().toString(36).substr(2,6).toUpperCase();
     localStorage.setItem('ash_device_id', deviceId); 
-}
+  }
 
   // Value listener with silent error handling
   db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
@@ -1101,11 +1091,9 @@ if (!deviceId) {
                 <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">WhatsApp:</span> +968 79347742</p>
                 <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Email:</span> ansarizamir634@gmail.com</p>
               </div>
+              
+              <!-- <button onclick="smartWhatsApp()" style="margin-top:15px; width:100%; padding:10px; border-radius:10px; border:none; background:#00D2D3; color:#121212; font-weight:bold; cursor:pointer;">Contact Developer</button> -->
             </div>
-
-            
-</style>
-
 
             <div style="margin-top:30px;padding:10px 20px;border-radius:50px;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);">
               <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">APP STATUS: ${val || 'NOT REGISTERED'}</span>
@@ -1131,7 +1119,6 @@ if (!deviceId) {
     
     else {
       console.log("DEVICE UNLOCKED");
-      // Fix: location.reload() ki jagah lock screen ko remove karein taaki "Site cannot reach" na aaye
       const lockScreen = document.getElementById('lock-screen-');
       if (lockScreen) {
           lockScreen.remove(); 
@@ -1143,6 +1130,8 @@ if (!deviceId) {
 }
 
 Lock();
+
+
 
 
 // --- Share Panel Update (Device ID Dikhane ke liye) ---
