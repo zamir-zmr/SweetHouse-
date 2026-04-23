@@ -1050,7 +1050,7 @@ if (!firebase.apps.length) {
 }
 const db = firebase.database();
 
-function UNLOCKED() {
+function Lock() {
   // Device ID को एक ही की (Key) पर फिक्स रखा है ताकि ID बार-बार न बदले
   let deviceId = localStorage.getItem('ash_device_id');
 
@@ -1125,7 +1125,7 @@ function UNLOCKED() {
   });
 }
 
-UNLOCKED();
+Lock();
 
 
 
