@@ -1055,8 +1055,8 @@ function Lock() {
 
   if (!deviceId) {
     // ASH ki jagah CA ya COST likh sakte hain
-    deviceId = 'ASH-' + Math.random().toString(36).substr(2,6).toUpperCase();
-    localStorage.setItem('ash_device_id', deviceId); 
+    deviceId = 'SH-' + Math.random().toString(36).substr(2,6).toUpperCase();
+    localStorage.setItem('sh_device_id', deviceId); 
   }
 
   // Value listener with silent error handling
