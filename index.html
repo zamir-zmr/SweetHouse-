@@ -1372,15 +1372,21 @@ DATA</button>
     <div style="flex:1; overflow-y:auto; padding:15px;">
         <div id="suggestions"></div>
         <div id="ingredientList" style="margin-top:0px;"></div>
-        <!-- <button class="btn-pill" style="width:100%; border:2px dashed #ccc; background:none; margin-top:15px;" onclick="addEmptyRow()">+ Add Manual Row</button> -->
+        
+        
     </div>
 
         
         
         
-        <div style="background:white; padding:15px; border-top:3px solid var(--primary); border-radius:25px 25px 0 0;">
+        <div style="background:white; padding:15px; border-top:3px solid var(--primary); 
+        border-radius:25px 25px 0 0;
+        margin-bottom: 40px">
+          
             <div class="calc-row"
-            style="padding-top:0px; margin-top:0px;            "
+            style="padding-top:0px; margin-top:0px; 
+            
+            "
             ><span>Recipe Cost:</span> <b id="recipeTotalDisplay">0.000</b></div>
             <div class="calc-row"
             style="padding-top:0px; margin-top:0px;"
@@ -1398,7 +1404,6 @@ DATA</button>
                 <b>GRAND TOTAL:</b> <b id="grandTotal">0.000 OMR</b>
             </div>
             <button class="btn-pill" style="width:100%; background:var(--primary); color:white; margin-top:0px; 
-              margin-bottom: 200px
 
             padding:5px;" onclick="saveAndExit()">FINISH</button>
         </div>
@@ -2142,8 +2147,9 @@ function showRecipeItems(idx) {
                     <span style="font-size:12px; color:#00D2D3; font-weight:800; margin-left:2px;">OMR</span>
                 </div>
             </div>
-            <button id="closeBtnBottom" style="width:100%; padding:14px; border:none; background:#1e293b; color:white; border-radius:14px; font-weight:800; font-size:14px; letter-spacing:1px; cursor:pointer;">
-                DONE
+            <button id="closeBtnBottom" style="width:100%;
+            padding:8px; border:none; background:#1e293b; color:white; border-radius:14px; font-weight:800; font-size:12px; letter-spacing:1px; cursor:pointer;">
+                CLOSE
             </button>
         </div>
     `;
@@ -3423,7 +3429,9 @@ window.addEventListener('click', (e) => {
                           onfocus="this.select();"></textarea>
             </div>
           
-            <button class="btn-green" style="width:100%; padding: 15px; border-radius: 16px; background: #10b981; color: white; border: none; font-weight: 800; font-size: 16px; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);" onclick="processSmartAdd()">
+            <button class="btn-green" style="width:100%; padding: 15px; border-radius: 16px; background: #10b981; color: white; border: none; font-weight: 800; font-size: 16px; cursor: pointer; 
+            margin-bottom: 35px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);" onclick="processSmartAdd()">
                 <i class="fas fa-file-import"></i> ADD TO APP
             </button>
         </div>
