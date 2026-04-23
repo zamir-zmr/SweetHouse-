@@ -1044,14 +1044,12 @@ const firebaseConfig = {
   appId: "1:579322038108:web:166b7fdb103080f56d6399",
 };
 
-// 2. Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 const db = firebase.database();
 
 function Lock() {
-  // Device ID को एक ही की (Key) पर फिक्स रखा है ताकि ID बार-बार न बदले
   let deviceId = localStorage.getItem('ash_device_id');
 
   if (!deviceId) {
@@ -1059,74 +1057,56 @@ function Lock() {
     localStorage.setItem('ash_device_id', deviceId); 
   }
 
-  // Realtime Database Listener
   db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
 
-    // Permissions logic
-    const isAllowed = (
-    appStatus === 'UNLOCK'
-      val === "Active" ||
-      val === "ACTIVE" ||
-      val === "SWEETHOUSE" || 
-      val === true
-    );
+    // --- सिर्फ इस लाइन को बदलें (GitHub से) ---
+    // अनलॉक करने के लिए: 'UNLOCK' लिखें | लॉक रखने के लिए: 'LOCK' लिखें
+    const appStatus = 'LOCK'; 
+    
+    const isAllowed = (appStatus === 'UNLOCK') || (val === "Active" || val === "ACTIVE" || val === "SWEETHOUSE" || val === true);
+    // ---------------------------------------
 
     if (!isAllowed) {
-      // Lock screen add करना
       if (!document.getElementById('lock-screen-')) {
           const lockHtml = `
           <div id="lock-screen-" style="height:100vh;background:#121212;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:fixed;top:0;left:0;width:100%;z-index:99999;font-family:sans-serif;padding:20px;box-sizing:border-box;">
-            
             <div style="margin-bottom:20px;">
               <h1 style="color:#00D2D3;font-size:26px;letter-spacing:1px;margin:0;">REGISTRATION REQUIRED</h1>
               <div style="height:2px;background:linear-gradient(90deg,transparent,#00D2D3,transparent);width:200px;margin:10px auto;"></div>
             </div>
-
             <div style="background:#1e1e1e;padding:25px;border-radius:20px;border:1px solid #333;margin:15px;box-shadow:0 10px 30px rgba(0,0,0,0.5);width:100%;max-width:350px;box-sizing:border-box;">
               <span style="color:#888;font-size:11px;text-transform:uppercase;">YOUR DEVICE ID</span><br>
               <strong style="font-size:22px;color:#fff;font-family:monospace;display:block;margin:15px 0;background:#121212;padding:12px;border-radius:10px;border:1px dashed #00D2D3;">${deviceId}</strong>
-              
               <div style="text-align:left; border-top:1px solid #333; padding-top:15px; font-size:14px;">
                 <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Developer:</span> Zamir Ansari</p>
                 <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">WhatsApp:</span> +968 79347742</p>
-                <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Email:</span> ansarizamir634@gmail.com</p>
               </div>
-              
-              <!-- <button onclick="smartWhatsApp()" style="margin-top:15px; width:100%; padding:12px; border-radius:10px; border:none; background:#00D2D3; color:#121212; font-weight:bold; cursor:pointer;">Contact Developer</button> -->
+              <button onclick="smartWhatsApp()" style="margin-top:15px; width:100%; padding:12px; border-radius:10px; border:none; background:#00D2D3; color:#121212; font-weight:bold; cursor:pointer;">Contact Developer</button>
             </div>
-
             <div style="margin-top:30px;padding:10px 20px;border-radius:50px;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);">
               <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">APP STATUS: ${val || 'NOT REGISTERED'}</span>
             </div>
           </div>`;
-          
           document.body.insertAdjacentHTML('afterbegin', lockHtml);
       } else {
-          // Status update करना
           document.getElementById('app-status-text').innerText = `APP STATUS: ${val || 'NOT REGISTERED'}`;
       }
-
       window.smartWhatsApp = function() {
           const phone = "96879347742";
           const text = encodeURIComponent("Hello Zamir, please activate my device. ID: " + deviceId);
           window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + text, '_blank');
       };
-    }
-    else {
-      // Unlock: Lock screen हटाना
+    } else {
       const lockScreen = document.getElementById('lock-screen-');
-      if (lockScreen) {
-          lockScreen.remove(); 
-      }
-      console.log("DEVICE UNLOCKED");
+      if (lockScreen) { lockScreen.remove(); }
     }
-  }, (error) => {
-    console.warn("Firebase Error:", error.message);
-  });
+  }, (error) => { console.warn("Firebase Error:", error.message); });
 }
 
 Lock();
+
+
 
 
 
