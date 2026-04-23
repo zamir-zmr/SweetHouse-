@@ -1033,11 +1033,11 @@
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <script>
-// 2. आपका नया SWEETHOUSE Firebase configuration
+// 1. Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA0rirztMO13FyXcKYz1aEB1ERYH-HQUbA",
   authDomain: "sweethouse-e3e49.firebaseapp.com",
-  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com", // यहाँ एक्स्ट्रा कोट्स हटा दिए हैं
+  databaseURL: "https://sweethouse-e3e49-default-rtdb.firebaseio.com",
   projectId: "sweethouse-e3e49",
   storageBucket: "sweethouse-e3e49.firebasestorage.app",
   messagingSenderId: "579322038108",
@@ -1051,19 +1051,19 @@ if (!firebase.apps.length) {
 const db = firebase.database();
 
 function Lock() {
+  // Device ID को एक ही की (Key) पर फिक्स रखा है ताकि ID बार-बार न बदले
   let deviceId = localStorage.getItem('ash_device_id');
 
   if (!deviceId) {
-    // ASH ki jagah CA ya COST likh sakte hain
     deviceId = 'SH-' + Math.random().toString(36).substr(2,6).toUpperCase();
-    localStorage.setItem('sh_device_id', deviceId); 
+    localStorage.setItem('ash_device_id', deviceId); 
   }
 
-  // Value listener with silent error handling
+  // Realtime Database Listener
   db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
 
-    // for Active, True, or your specific tag ASH786
+    // Permissions logic
     const isAllowed = (
       val === "Active" ||
       val === "ACTIVE" ||
@@ -1072,7 +1072,7 @@ function Lock() {
     );
 
     if (!isAllowed) {
-      // Agar pehle se lock screen nahi hai, tabhi add karein (is-se refresh loop nahi banega)
+      // Lock screen add करना
       if (!document.getElementById('lock-screen-')) {
           const lockHtml = `
           <div id="lock-screen-" style="height:100vh;background:#121212;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:fixed;top:0;left:0;width:100%;z-index:99999;font-family:sans-serif;padding:20px;box-sizing:border-box;">
@@ -1092,7 +1092,7 @@ function Lock() {
                 <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Email:</span> ansarizamir634@gmail.com</p>
               </div>
               
-              <!-- <button onclick="smartWhatsApp()" style="margin-top:15px; width:100%; padding:10px; border-radius:10px; border:none; background:#00D2D3; color:#121212; font-weight:bold; cursor:pointer;">Contact Developer</button> -->
+              <!-- <button onclick="smartWhatsApp()" style="margin-top:15px; width:100%; padding:12px; border-radius:10px; border:none; background:#00D2D3; color:#121212; font-weight:bold; cursor:pointer;">Contact Developer</button> -->
             </div>
 
             <div style="margin-top:30px;padding:10px 20px;border-radius:50px;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);">
@@ -1102,34 +1102,32 @@ function Lock() {
           
           document.body.insertAdjacentHTML('afterbegin', lockHtml);
       } else {
-          // Agar lock screen dikh rahi hai, to bas status text update karein
+          // Status update करना
           document.getElementById('app-status-text').innerText = `APP STATUS: ${val || 'NOT REGISTERED'}`;
       }
 
       window.smartWhatsApp = function() {
           const phone = "96879347742";
           const text = encodeURIComponent("Hello Zamir, please activate my device. ID: " + deviceId);
-          const waUrl = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + text;
-          let link = document.createElement('a');
-          link.href = waUrl;
-          link.target = '_blank';
-          link.click();
+          window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + text, '_blank');
       };
     }
-    
     else {
-      console.log("DEVICE UNLOCKED");
+      // Unlock: Lock screen हटाना
       const lockScreen = document.getElementById('lock-screen-');
       if (lockScreen) {
           lockScreen.remove(); 
       }
+      console.log("DEVICE UNLOCKED");
     }
   }, (error) => {
-    console.warn("Firebase Error Suppressed:", error.message);
+    console.warn("Firebase Error:", error.message);
   });
 }
 
 Lock();
+
+
 
 
 
