@@ -1070,7 +1070,7 @@ if (!deviceId) {
 }
 
   // Value listener with silent error handling
-  db.ref('allowed_devices/' + deviceId).on('value', (snapshot) => {
+  db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
 
     // for Active, True, or your specific tag ASH786
