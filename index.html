@@ -441,7 +441,11 @@
         
         
         
-        .panel-nav { background: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; font-weight: bold; }
+        .panel-nav { background: white; padding: 7px;
+        padding-right: 30px;
+        margin-left: 15px;
+        
+        display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; font-weight: bold; }
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .input-modal { background: white; border-radius: 35px; padding: 25px; width: 100%; max-width: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         
@@ -1308,7 +1312,13 @@ DATA</button>
 
 
 <div id="stockPanel" class="panel">
-    <div class="panel-nav" style="padding: 10px 15px;">
+    <div class="panel-nav" style="
+    padding: 5px;
+        padding-right: 30px;
+        margin-left: 15px;
+    
+    
+    ">
         STOCK MATERIALS 
         <span onclick="closePanel('stockPanel')" style="cursor:pointer; padding:5px;">✕</span>
     </div>
