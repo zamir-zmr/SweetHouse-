@@ -1060,17 +1060,17 @@ if (!firebase.apps.length) {
 const db = firebase.database();
 
 function Lock() {
-  let deviceId = localStorage.getItem('SweetHouse_device_id');
+  let deviceId = localStorage.getItem('ash_device_id');
 
 
 if (!deviceId) {
     // ASH ki jagah CA ya COST likh sakte hain
     deviceId = 'ASH-' + Math.random().toString(36).substr(2,6).toUpperCase();
-    localStorage.setItem('SweetHouse_device_id', deviceId); 
+    localStorage.setItem('ash_device_id', deviceId); 
 }
 
   // Value listener with silent error handling
-  db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
+  db.ref('allowed_devices/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
 
     // for Active, True, or your specific tag ASH786
@@ -1453,7 +1453,7 @@ function initApp() {
     if (typeof db !== 'undefined') {
         
         // STOCK SYNC: Jab bhi Madam add karengi, aapka phone Bina Refresh kiye update hoga
-        db.ref('shared_stock_list').on('value', (snapshot) => {
+        db.ref('shared_sh_stock_list').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 stock = data;
@@ -1465,7 +1465,7 @@ function initApp() {
         });
 
         // RECIPES SYNC: Madam recipe banayengi toh aapko turant dikhega
-        db.ref('shared_recipes_list').on('value', (snapshot) => {
+        db.ref('shared_sh_recipes_list').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 recipes = data;
@@ -1476,7 +1476,7 @@ function initApp() {
         });
 
         // CATEGORIES SYNC
-        db.ref('shared_categories').on('value', (snapshot) => {
+        db.ref('shared_sh_categories').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 cats = data;
@@ -1545,7 +1545,7 @@ function saveData() {
 function syncCatsToCloud() {
     saveData(); // Local save
     if (typeof db !== 'undefined') {
-        db.ref('shared_categories').set(cats); // Madam ke phone ke liye
+        db.ref('shared_sh_categories').set(cats); // Madam ke phone ke liye
         console.log("Categories Synced to Cloud ");
     }
 }
@@ -1681,7 +1681,7 @@ function editCategory(i) {
             // --- SYNC FIX ---
             syncCatsToCloud(); // Rename hote hi Madam ke phone par bhi update hoga
             if (typeof db !== 'undefined') {
-                db.ref('shared_recipes_list').set(recipes); // Recipes bhi sync karni padegi category rename ke liye
+                db.ref('shared_sh_recipes_list').set(recipes); // Recipes bhi sync karni padegi category rename ke liye
             }
 
             renderCatFilters(); 
@@ -1875,7 +1875,7 @@ function submitInputModal() {
             });
 
             if (typeof db !== 'undefined') {
-                db.ref('shared_recipes_list').set(recipes);
+                db.ref('shared_sh_recipes_list').set(recipes);
             }
             stock[activeIdx] = item;
         } else {
@@ -1883,7 +1883,7 @@ function submitInputModal() {
         }
         
         if (typeof db !== 'undefined') {
-            db.ref('shared_stock_list').set(stock);
+            db.ref('shared_sh_stock_list').set(stock);
         }
         showToast(`${name} Updated in All Recipes`);
 
@@ -1906,7 +1906,7 @@ function submitInputModal() {
         else recipes.push(recipeData);
 
         if (typeof db !== 'undefined') {
-            db.ref('shared_recipes_list').set(recipes);
+            db.ref('shared_sh_recipes_list').set(recipes);
         }
         showToast(`${name} Recipe Saved & Synced`);
     }
@@ -2207,8 +2207,8 @@ function syncAllToCloud() {
     saveData(); // Pehle mobile mein save karega
     if (typeof db !== 'undefined') {
         // Firebase par update bhej raha hai taaki Madam ko bhi dikhe
-        db.ref('shared_stock_list').set(stock);
-        db.ref('shared_recipes_list').set(recipes);
+        db.ref('shared_sh_stock_list').set(stock);
+        db.ref('shared_sh_recipes_list').set(recipes);
         console.log("Cloud Sync Done ");
     }
 }
@@ -2420,7 +2420,7 @@ function addIng(name, price, base) {
     // 3. FIREBASE & LOCAL SYNC
     saveData(); 
     if (typeof db !== 'undefined') {
-        db.ref('shared_recipes_list').set(recipes);
+        db.ref('shared_sh_recipes_list').set(recipes);
     }
 
     // 4. UI UPDATE
@@ -2434,7 +2434,7 @@ function addIng(name, price, base) {
 function syncRecipeToCloud() {
     saveData();
     if (typeof db !== 'undefined') {
-        db.ref('shared_recipes_list').set(recipes);
+        db.ref('shared_sh_recipes_list').set(recipes);
     }
 }
 
@@ -2726,7 +2726,7 @@ function handleDeleteAction() {
                 
                 // Cloud sync
                 if (typeof db !== 'undefined') {
-                    db.ref('shared_recipes_list').set(recipes);
+                    db.ref('shared_sh_recipes_list').set(recipes);
                 }
                 
                 // Save and Refresh
@@ -2757,7 +2757,7 @@ function handleDeleteAction() {
                 
                 // Cloud sync
                 if (typeof db !== 'undefined') {
-                    db.ref('shared_stock_list').set(stock);
+                    db.ref('shared_sh_stock_list').set(stock);
                 }
                 
                 // Save and Refresh
@@ -2795,7 +2795,7 @@ function deleteCat(i) {
             if (typeof db !== 'undefined') {
                 // Last category delete hone par [] bhejien
                 let catSync = (cats.length === 0) ? [] : cats;
-                db.ref('shared_categories').set(catSync)
+                db.ref('shared_sh_categories').set(catSync)
                   .then(() => {
                       // --- UPDATED TOAST WITH NAME ---
                       showToast(`${catName} Category Deleted & Synced`);
@@ -3018,7 +3018,7 @@ function openSmartShare() {
     document.getElementById('sharePanel').style.display = 'flex';
     
     // --- 🛡️ Professional Neon Glow AEC ID ---
-    const deviceId = localStorage.getItem('SweetHouse_device_id') || 'UNAUTHORIZED';
+    const deviceId = localStorage.getItem('ash_device_id') || 'UNAUTHORIZED';
     const deviceDisplay = document.getElementById('displayDeviceId');
     if (deviceDisplay) {
         deviceDisplay.style.cssText = `
@@ -3206,9 +3206,9 @@ function processSmartAdd() {
             // B. FIREBASE SYNC (Zaroori Fix)
             // Isse data Online jayega aur Madam ke phone par turant dikhega
             if (typeof db !== 'undefined') {
-                db.ref('shared_stock_list').set(stock);
-                db.ref('shared_recipes_list').set(recipes);
-                db.ref('shared_categories').set(cats);
+                db.ref('shared_sh_stock_list').set(stock);
+                db.ref('shared_sh_recipes_list').set(recipes);
+                db.ref('shared_sh_categories').set(cats);
                 console.log("JSON Data Synced to Cloud ");
             }
 
