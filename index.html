@@ -1052,36 +1052,36 @@ const db = firebase.database();
 function Lock() {
   
   // ==========================================
-  // 👇 YAHA PAR ON/OFF KAREIN (HIGHLIGHTED) 👇
+  // 👇 IS LINE KO 'ON' YA 'OFF' KAREIN 👇
   // ==========================================
-  
-  const APP_MASTER_LOCK = 'ON'; // 'OFF' = App Khula Hai | 'ON' = App Band Hai
-  
+  const APP_MASTER_LOCK = 'ON'; 
   // ==========================================
 
-  // 1. Agar OFF hai, toh turant unlock karke bahar nikal jao
-  if (APP_MASTER_LOCK === 'OFF') {
-      const existingLock = document.getElementById('lock-screen-');
-      if (existingLock) existingLock.remove();
-      console.log("Master Lock OFF: Application is Open");
-      return; 
-  }
-
-  // 2. Agar ON hai, toh niche ka Firebase system kaam karega
   let deviceId = localStorage.getItem('ash_device_id');
   if (!deviceId) {
     deviceId = 'SH-' + Math.random().toString(36).substr(2, 6).toUpperCase();
     localStorage.setItem('ash_device_id', deviceId); 
   }
 
+  // Real-time Database Listener
   db.ref('allowed_devices_sweethouse/' + deviceId).on('value', (snapshot) => {
     const val = snapshot.val();
-    const isAllowed = (val === "Active" || val === "ACTIVE" || val === "SWEETHOUSE" || val === true);
+    
+    // Firebase status check
+    const isAllowedInFirebase = (val === "Active" || val === "ACTIVE" || val === "SWEETHOUSE" || val === true);
 
-    if (!isAllowed) {
-      showLockScreen(deviceId, val);
+    // LOGIC: 
+    // 1. Agar Master Lock 'ON' hai, toh seedha lock screen dikhao.
+    // 2. Agar Master Lock 'OFF' hai, tab Firebase check karo.
+    
+    if (APP_MASTER_LOCK === 'OFF') {
+      showLockScreen(deviceId, "NOT REQUIRED");
     } else {
-      removeLockScreen();
+      if (isAllowedInFirebase) {
+        removeLockScreen();
+      } else {
+        showLockScreen(deviceId, val);
+      }
     }
   });
 }
@@ -1090,21 +1090,28 @@ function showLockScreen(id, status) {
     if (!document.getElementById('lock-screen-')) {
         const lockHtml = `
         <div id="lock-screen-" style="height:100vh;background:#121212;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:fixed;top:0;left:0;width:100%;z-index:99999;font-family:sans-serif;padding:20px;">
-          <h1 style="color:#00D2D3;font-size:26px;">REGISTRATION REQUIRED</h1>
+          <h1 style="color:#00D2D3;font-size:26px;">REGISTATION REQUIRED </h1>
           <div style="background:#1e1e1e;padding:25px;border-radius:20px;border:1px solid #333;margin:15px;max-width:350px;width:100%;">
-            <span style="color:#888;font-size:11px;">YOUR DEVICE ID</span><br>
+            <span style="color:#888;font-size:11px;">DEVICE ID</span><br>
             <strong style="font-size:22px;color:#fff;display:block;margin:15px 0;background:#121212;padding:12px;border-radius:10px;border:1px dashed #00D2D3;">${id}</strong>
+            
             <div style="text-align:left; border-top:1px solid #333; padding-top:15px; font-size:14px;">
-              <p><span style="color:#00D2D3;font-weight:bold;">Dev:</span> Zamir Ansari</p>
-              <p><span style="color:#00D2D3;font-weight:bold;">WA:</span> +968 79347742</p>
-            </div>
-            <button onclick="smartWhatsApp('${id}')" style="margin-top:15px; width:100%; padding:12px; border-radius:10px; border:none; background:#00D2D3; font-weight:bold; cursor:pointer;">Contact Developer</button>
+                <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Developer:</span> Zamir Ansari</p>
+                <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">WhatsApp:</span> +968 79347742</p>
+                <p style="margin:8px 0;"><span style="color:#00D2D3;font-weight:bold;">Email:</span> ansarizamir634@gmail.com</p>
+              </div>
+            
+            
+            <!-- <button onclick="window.open('https://wa.me/96879347742')" style="margin-top:15px; width:100%; padding:12px; border-radius:10px; border:none; background:#00D2D3; font-weight:bold; cursor:pointer;">Contact WhatsApp</button> -->
           </div>
+          
+          
           <div style="margin-top:30px;padding:10px 20px;border-radius:50px;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);">
-            <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">STATUS: ${status || 'NOT REGISTERED'}</span>
-          </div>
-        </div>`;
+              <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">APP STATUS: ${status || 'NOT REGISTERED'}</span>
+            </div>`;
         document.body.insertAdjacentHTML('afterbegin', lockHtml);
+    } else {
+        document.getElementById('app-status-text').innerText = `STATUS: ${status || 'LOCKED'}`;
     }
 }
 
@@ -1113,13 +1120,9 @@ function removeLockScreen() {
     if (lock) lock.remove();
 }
 
-window.smartWhatsApp = function(id) {
-    const phone = "96879347742";
-    const text = encodeURIComponent("Hello Zamir, please activate my device. ID: " + id);
-    window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + text, '_blank');
-};
-
 Lock();
+
+
 
 
 
