@@ -1065,6 +1065,7 @@ function Lock() {
 
     // Permissions logic
     const isAllowed = (
+    appStatus === 'UNLOCK'
       val === "Active" ||
       val === "ACTIVE" ||
       val === "SWEETHOUSE" || 
