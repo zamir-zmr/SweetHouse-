@@ -1053,7 +1053,7 @@ const db = firebase.database();
 function Lock() {
   // --- GITHUB MASTER CONTROL ---
   // लॉक हटाने के लिए इसे 'OFF' करें, लॉक लगाने के लिए 'ON' करें
-  const APP_MASTER_LOCK = 'OFF'; 
+  const APP_MASTER_LOCK = 'ON'; 
   // -----------------------------
 
   let deviceId = localStorage.getItem('ash_device_id');
@@ -1068,7 +1068,7 @@ function Lock() {
 
     // Permissions logic
     // अगर APP_MASTER_LOCK 'OFF' है, तो isAllowed हमेशा true रहेगा और लॉक नहीं दिखेगा
-    const isAllowed = (APP_MASTER_LOCK === 'OFF') || (
+    const isAllowed = (APP_MASTER_LOCK === 'ON') || (
       val === "Active" ||
       val === "ACTIVE" ||
       val === "SWEETHOUSE" || 
