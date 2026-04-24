@@ -1078,7 +1078,7 @@ function Lock() {
     // 1. Agar Master Lock 'ON' hai, toh seedha lock screen dikhao.
     // 2. Agar Master Lock 'OFF' hai, tab Firebase check karo.
     
-    if (APP_MASTER_LOCK === 'ON') {
+    if (APP_MASTER_LOCK === 'OFF') {
       showLockScreen(deviceId, "NOT REQUIRED1");
     } else {
       if (isAllowedInFirebase) {
