@@ -217,8 +217,13 @@
     filter: brightness(1.1);
 }
 
-
-
+/*         .btn-pill { padding: 10px 15px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 11px; transition: 0.2s; }
+ */        
+/*         .btn-pill:active { 
+    transform: scale(0.92); 
+    filter: brightness(1.1);
+}
+ */
 
 
 /* Professional Heavy Coin + Global Yellow Glow */
@@ -339,12 +344,7 @@
         .cat-item { padding: 8px 18px; background: white; border-radius: 20px; font-size: 12px; font-weight: bold; border: 1.5px solid #eee; cursor: pointer; transition: 0.2s; }
         .cat-item.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,210,211,0.3); }
 
-        .btn-pill { padding: 10px 15px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 11px; transition: 0.2s; }
-        
-        .btn-pill:active { 
-    transform: scale(0.92); 
-    filter: brightness(1.1);
-}
+
 
         
         .btn-manage { background: white; color: #2D3436; }
@@ -1059,6 +1059,12 @@ function Lock() {
   // 👇 IS LINE KO 'ON' YA 'OFF' KAREIN 👇
   // ==========================================
   const APP_MASTER_LOCK = 'ON'; 
+  
+  /*YAHA "ON"  firebase me "ACTIVE"*/
+/*<!--   tabhi app chalega
+ -->  */  // ==========================================
+
+  
   // ==========================================
 
   let deviceId = localStorage.getItem('ash_device_id');
@@ -1072,7 +1078,11 @@ function Lock() {
     const val = snapshot.val();
     
     // Firebase status check
-    const isAllowedInFirebase = (val === "Active" || val === "ACTIVE" || val === "SWEETHOUSE" || val === true);
+    const isAllowedInFirebase =
+    (val === "Active" || 
+    val === "ACTIVE" || 
+    val === "SWEETHOUSE" || 
+    val === true);
 
     // LOGIC: 
     // 1. Agar Master Lock 'ON' hai, toh seedha lock screen dikhao.
@@ -3412,7 +3422,7 @@ window.addEventListener('click', (e) => {
 
 </div>
             
-        <button class="btn-purple" style="width:100%; padding: 14px; border-radius: 14px; background: #8b5cf6; color: white; border: none; font-weight: 700; font-size: 14px; margin-bottom: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);" onclick="generateShareCode()">
+        <button class="btn-purple" style="width:100%; padding: 10px; border-radius: 14px; background: #8b5cf6; color: white; border: none; font-weight: 700; font-size: 14px; margin-bottom: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);" onclick="generateShareCode()">
             <i class="fas fa-magic"></i> GENERATE BACKUP CODE
         </button>
 
@@ -3439,7 +3449,7 @@ window.addEventListener('click', (e) => {
                           onfocus="this.select();"></textarea>
             </div>
           
-            <button class="btn-green" style="width:100%; padding: 15px; border-radius: 16px; background: #10b981; color: white; border: none; font-weight: 800; font-size: 16px; cursor: pointer; 
+            <button class="btn-green" style="width:100%; padding: 8px; border-radius: 16px; background: #10b981; color: white; border: none; font-weight: 800; font-size: 16px; cursor: pointer; 
             margin-bottom: 35px;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);" onclick="processSmartAdd()">
                 <i class="fas fa-file-import"></i> ADD TO APP
