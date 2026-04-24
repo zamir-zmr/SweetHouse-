@@ -1079,7 +1079,7 @@ function Lock() {
     // 2. Agar Master Lock 'OFF' hai, tab Firebase check karo.
     
     if (APP_MASTER_LOCK === 'ON') {
-      showLockScreen(deviceId, "NOT REQUIRED");
+      showLockScreen(deviceId, "NOT REQUIRED1");
     } else {
       if (isAllowedInFirebase) {
         removeLockScreen();
@@ -1111,7 +1111,7 @@ function showLockScreen(id, status) {
           
           
           <div style="margin-top:30px;padding:10px 20px;border-radius:50px;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.3);">
-              <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">APP STATUS: ${status || 'NOT REGISTERED'}</span>
+              <span id="app-status-text" style="color:#ff4757;font-size:12px;font-weight:bold;">APP STATUS: ${status || 'NOT REGISTERED2'}</span>
             </div>`;
         document.body.insertAdjacentHTML('afterbegin', lockHtml);
     } else {
