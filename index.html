@@ -1412,14 +1412,14 @@ DATA</button>
 <div id="stockPanel" class="panel">
     <div style="padding:1px; background:#07c1c1;
   ">
-  
-    <div class="stockpanel-nav">STOCK MATERIALS 
-    <span onclick="closePanel('stockPanel')" style="cursor:pointer; 
-    
-    
-    
-    ">✕</span>
+      
+      <div class="stockpanel-nav">STOCK MATERIALS 
+    <span onclick="closePanel('stockPanel')" style="cursor:pointer;"</span>
+  <i class="fas fa-times" style="font-size:20px;
+  color : black;
+  "></i>
     </div>
+
     </div>
     
     <div style="padding: 5px 15px 0 15px;">
@@ -1445,7 +1445,11 @@ DATA</button>
   <div style="padding:1px; background:#07c1c1;
   ">
   
-    <div class="catpanel-nav">MANAGE CATEGORIES <span onclick="closePanel('catPanel')">✕</span></div>
+    <div class="catpanel-nav">MANAGE CATEGORIES <span onclick="closePanel('catPanel')"</span>
+  <i class="fas fa-times" style="font-size:20px;
+  color : black;
+  "></i>
+    </div>
     </div>
     
     <div style="padding:15px; background:#bef1f5; border-bottom:1px solid #eee;">
@@ -1469,8 +1473,14 @@ DATA</button>
   
     <div class="editorpanel-nav">
       <span id="activeTitle"></span> 
-    <span onclick="saveAndExit()">
-      ✕</span></div>
+    <span onclick="saveAndExit()"
+      </span>
+  <i class="fas fa-times" style="font-size:20px;
+  color : black;
+  "></i>
+    </div>
+      
+      
     </div>
     
     
@@ -1530,6 +1540,7 @@ DATA</button>
             padding:5px;" onclick="saveAndExit()">FINISH</button>
         </div>
     </div>
+
 
 <div id="stockViewModal" class="modal-overlay" onclick="if(event.target === this) smartClose()">
     <div class="input-modal" style="text-align:center; max-height: 90vh; overflow-y: auto; padding: 20px;">
