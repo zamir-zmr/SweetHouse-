@@ -2807,7 +2807,7 @@ function handleDeleteAction() {
             onYes: () => {
                 recipes.splice(activeIdx, 1);
                 if (typeof db !== 'undefined') {
-                    db.ref('shared_recipes_list').set(recipes);
+                    db.ref('shared_sh_recipes_list').set(recipes);
                 }
                 saveData(); 
                 initApp();
@@ -2827,7 +2827,7 @@ function handleDeleteAction() {
             onYes: () => {
                 stock.splice(activeIdx, 1);
                 if (typeof db !== 'undefined') {
-                    db.ref('shared_stock_list').set(stock);
+                    db.ref('shared_sh_stock_list').set(stock);
                 }
                 saveData(); 
                 initApp();
