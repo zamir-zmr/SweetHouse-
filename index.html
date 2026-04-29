@@ -444,9 +444,7 @@
         
         border: 2px solid #ffffff; font-weight: bold; }
 
-
-        
-        .panel-nav { background: #a6f2f8; padding: 15px;
+        .catpanel-nav { background: #a6f2f8; padding: 15px;
         padding-right: 30px;
         margin-left: 5px;
         margin-right: 5px;
@@ -457,6 +455,21 @@
         border-radius: 30px;
         
         border: 2px solid #ffffff; font-weight: bold; }
+
+        .editorpanel-nav { background: #a6f2f8; padding: 15px;
+        padding-right: 30px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        
+        display: flex; justify-content: space-between; align-items: center;
+        border-radius: 30px;
+        
+        border: 2px solid #ffffff; font-weight: bold; }
+
+        
+
         
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .input-modal { background: white; border-radius: 35px; padding: 25px; width: 100%; max-width: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
@@ -1422,7 +1435,7 @@ DATA</button>
   <div style="padding:1px; background:#07c1c1;
   ">
   
-    <div class="panel-nav">MANAGE CATEGORIES <span onclick="closePanel('catPanel')">✕</span></div>
+    <div class="catpanel-nav">MANAGE CATEGORIES <span onclick="closePanel('catPanel')">✕</span></div>
     </div>
     
     <div style="padding:15px; background:#bef1f5; border-bottom:1px solid #eee;">
@@ -1442,7 +1455,7 @@ DATA</button>
 
     <div id="editorPanel" class="panel">
       
-    <div class="panel-nav">
+    <div class="editorpanel-nav">
         <span id="activeTitle"></span> 
         <span onclick="saveAndExit()">✕</span>  
     </div>
