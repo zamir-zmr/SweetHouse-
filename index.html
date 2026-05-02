@@ -2059,18 +2059,20 @@ function toggleSearch() {
 }
 
 function handleSearch(val) {
-    searchQuery = val.toLowerCase();
-    // Jab search ho raha ho, tab animation band rahega
+    // .trim() use karne se "Chewy Cookies " ka extra space hat jayega
+    searchQuery = val.toLowerCase().trim();
+    
+    // Jab search ho raha ho (query length > 0), tab animation band rahega
     isSearchActive = (searchQuery.length > 0); 
+    
     renderRecipes();
 }
 
-
-
 function renderRecipes() {
-    // 1. Unified Filter
+    // 1. Unified Filter with Trimmed Search
     let filtered = recipes.filter(r => {
         const matchesCategory = (currentFilter === 'ALL' || r.category === currentFilter);
+        // searchQuery ab trimmed hai, isliye matching perfect hogi
         const matchesSearch = r.name.toLowerCase().includes(searchQuery);
         return matchesCategory && matchesSearch;
     });
@@ -2094,7 +2096,6 @@ function renderRecipes() {
             ? `<img src="${r.img}" style="width:100%; height:100%; object-fit:cover;">` 
             : `<div style="font-size:${iconSize}; display:flex; align-items:center; justify-content:center; height:100%; width:100%; background:#f8fafc; color:#cbd5e1;">🖼️</div>`;
 
-        
         let dangerEffect = isManage ? 'animation: jiggle 0.3s infinite ease-in-out; border: 2px dashed #ff4757 !important;' : '';
 
         return `
