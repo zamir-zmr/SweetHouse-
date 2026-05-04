@@ -3582,6 +3582,16 @@ document.addEventListener('click', function(e) {
 </div>
 
 <script>
+// ===== SERVICE WORKER REGISTER =====
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('SW registered:', reg.scope))
+            .catch(err => console.log('SW error:', err));
+    });
+}
+
+// ===== INTERNET DETECTION =====
 function showNoInternet() {
     document.getElementById('noInternetOverlay').style.display = 'flex';
 }
@@ -3600,6 +3610,7 @@ function checkInternet() {
 function checkInternetAndRefresh() {
     if (navigator.onLine) {
         hideNoInternet();
+        window.location.reload();
     } else {
         var btn = document.querySelector('#noInternetOverlay button');
         btn.style.background = '#ff6b6b';
@@ -3609,7 +3620,10 @@ function checkInternetAndRefresh() {
 }
 window.addEventListener('load', function() { setTimeout(checkInternet, 500); });
 window.addEventListener('offline', showNoInternet);
-window.addEventListener('online', hideNoInternet);
+window.addEventListener('online', function() {
+    hideNoInternet();
+    window.location.reload();
+});
 setInterval(function() {
     if (document.getElementById('noInternetOverlay').style.display === 'flex') checkInternet();
 }, 5000);
