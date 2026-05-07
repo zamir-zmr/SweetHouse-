@@ -1504,14 +1504,17 @@ DATA</button>
 // Data load aur default values fix
 
 // 1. Data load aur default values fix
-let recipes = JSON.parse(localStorage.getItem('ASH_R')) || [];
+// Sweet House App के लिए यूनिक कीज़
+let recipes = JSON.parse(localStorage.getItem('SH_R')) || [];
 
-// Stock ko objects ke roop mein rakha hai taaki price logic crash na ho
-let stock = JSON.parse(localStorage.getItem('ASH_S')) || [
-    { name: "", price: 0, img: "" }];
+// Stock के लिए SH_S का इस्तेमाल
+let stock = JSON.parse(localStorage.getItem('SH_S')) || [
+    { name: "", price: 0, img: "" }
+];
 
-// Categories ko default set kiya hai
-let cats = JSON.parse(localStorage.getItem('ASH_C')) || [""];
+// Categories के लिए SH_C का इस्तेमाल
+let cats = JSON.parse(localStorage.getItem('SH_C')) || [""];
+
 
 let activeIdx = null, mode = '', tempImg = '', isManage = false, currentFilter = 'ALL';
 let longPressTimer;
@@ -1606,9 +1609,9 @@ function uploadAppLogo(input) {
 }
 
 function saveData() { 
-    localStorage.setItem('ASH_R', JSON.stringify(recipes)); 
-    localStorage.setItem('ASH_S', JSON.stringify(stock)); 
-    localStorage.setItem('ASH_C', JSON.stringify(cats)); 
+    localStorage.setItem('SH_R', JSON.stringify(recipes)); 
+    localStorage.setItem('SH_S', JSON.stringify(stock)); 
+    localStorage.setItem('SH_C', JSON.stringify(cats)); 
 }
 
 // --- NEW SYNC HELPER FOR CATEGORIES ---
@@ -3288,7 +3291,7 @@ function processReset() {
         title: "⚠️ FULL RESET?",
         msg: "Delete ALL Recipes, Stock, and Categories?",
         onYes: () => {
-            localStorage.removeItem('ASH_R'); localStorage.removeItem('ASH_S'); localStorage.removeItem('ASH_C');
+            localStorage.removeItem('SH_R'); localStorage.removeItem('SH_S'); localStorage.removeItem('SH_C');
             recipes = [];
             stock = [{ name: "", price: 0, img: "" }
             ];
